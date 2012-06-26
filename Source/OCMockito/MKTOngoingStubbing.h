@@ -64,4 +64,30 @@
 /// Stubs given @c double as return value.
 - (MKTOngoingStubbing *)willReturnDouble:(double)value;
 
+
+/**
+ * Provides a facility to stub with all return values above, and also execute a block.
+ */
+
+- (MKTOngoingStubbing *)willDo:(void (^)(void))action andReturn:(id)object;
+
+#define DEFINE_DO_AND_RETURN_METHOD_PROTO(type, typeName)                                        \
+- (MKTOngoingStubbing *)willDo:(void (^)(void))action andReturn ## typeName:(type)value                      
+
+DEFINE_DO_AND_RETURN_METHOD_PROTO(BOOL, Bool);
+DEFINE_DO_AND_RETURN_METHOD_PROTO(char, Char);
+DEFINE_DO_AND_RETURN_METHOD_PROTO(int, Int);
+DEFINE_DO_AND_RETURN_METHOD_PROTO(short, Short);
+DEFINE_DO_AND_RETURN_METHOD_PROTO(long, Long);
+DEFINE_DO_AND_RETURN_METHOD_PROTO(long long, LongLong);
+DEFINE_DO_AND_RETURN_METHOD_PROTO(NSInteger, Integer);
+DEFINE_DO_AND_RETURN_METHOD_PROTO(unsigned char, UnsignedChar);
+DEFINE_DO_AND_RETURN_METHOD_PROTO(unsigned int, UnsignedInt);
+DEFINE_DO_AND_RETURN_METHOD_PROTO(unsigned short, UnsignedShort);
+DEFINE_DO_AND_RETURN_METHOD_PROTO(unsigned long, UnsignedLong);
+DEFINE_DO_AND_RETURN_METHOD_PROTO(unsigned long long, UnsignedLongLong);
+DEFINE_DO_AND_RETURN_METHOD_PROTO(NSUInteger, UnsignedInteger);
+DEFINE_DO_AND_RETURN_METHOD_PROTO(float, Float);
+DEFINE_DO_AND_RETURN_METHOD_PROTO(double, Double);
+
 @end

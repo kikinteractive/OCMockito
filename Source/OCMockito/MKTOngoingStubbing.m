@@ -37,6 +37,13 @@
     return self;
 }
 
+- (MKTOngoingStubbing *)willDo:(void (^)(void))action andReturn:(id)object
+{
+    [_invocationContainer addAnswer:object action:action];
+    return self;
+}
+
+
 #define DEFINE_RETURN_METHOD(type, typeName)                                        \
     - (MKTOngoingStubbing *)willReturn ## typeName:(type)value                      \
     {                                                                               \
@@ -59,6 +66,30 @@ DEFINE_RETURN_METHOD(unsigned long long, UnsignedLongLong)
 DEFINE_RETURN_METHOD(NSUInteger, UnsignedInteger)
 DEFINE_RETURN_METHOD(float, Float)
 DEFINE_RETURN_METHOD(double, Double)
+
+
+#define DEFINE_DO_AND_RETURN_METHOD(type, typeName)                                         \
+- (MKTOngoingStubbing *)willDo:(void (^)(void))action andReturn ## typeName:(type)value {   \
+    [_invocationContainer addAnswer:[NSNumber numberWith ## typeName:value] action:action]; \
+    return self;                                                                            \
+}                                                                                           
+
+DEFINE_DO_AND_RETURN_METHOD(BOOL, Bool)
+DEFINE_DO_AND_RETURN_METHOD(char, Char)
+DEFINE_DO_AND_RETURN_METHOD(int, Int)
+DEFINE_DO_AND_RETURN_METHOD(short, Short)
+DEFINE_DO_AND_RETURN_METHOD(long, Long)
+DEFINE_DO_AND_RETURN_METHOD(long long, LongLong)
+DEFINE_DO_AND_RETURN_METHOD(NSInteger, Integer)
+DEFINE_DO_AND_RETURN_METHOD(unsigned char, UnsignedChar)
+DEFINE_DO_AND_RETURN_METHOD(unsigned int, UnsignedInt)
+DEFINE_DO_AND_RETURN_METHOD(unsigned short, UnsignedShort)
+DEFINE_DO_AND_RETURN_METHOD(unsigned long, UnsignedLong)
+DEFINE_DO_AND_RETURN_METHOD(unsigned long long, UnsignedLongLong)
+DEFINE_DO_AND_RETURN_METHOD(NSUInteger, UnsignedInteger)
+DEFINE_DO_AND_RETURN_METHOD(float, Float)
+DEFINE_DO_AND_RETURN_METHOD(double, Double)
+
 
 
 #pragma mark MKTPrimitiveArgumentMatching

@@ -9,9 +9,11 @@
 @implementation MKTStubbedInvocationMatcher
 
 @synthesize answer = _answer;
+@synthesize action;
 
 - (void)dealloc
 {
+    self.action = nil;
     [_answer release];
     [super dealloc];
 }

@@ -353,4 +353,41 @@
     assertThatDouble([mockObject methodReturningDouble], equalToDouble(42));
 }
 
+
+
+/**
+ * Stub action tests.
+ */
+- (void)testStubbedMethodCanPerformActionAndReturnObject
+{
+    ReturningObject *mockObject = mock([ReturningObject class]);
+    NSObject *testObject = [[[NSObject alloc] init] autorelease];
+    __block BOOL didPerformAction = NO;
+    [given([mockObject methodReturningObject]) willDo:^{
+        didPerformAction = YES;
+    } andReturn:testObject];
+    
+    NSObject *returnedObject = [mockObject methodReturningObject];
+    
+    STAssertTrue(returnedObject != self, @"Returned object was not set.");
+    STAssertTrue(didPerformAction, @"Action not performed by stub.");
+}
+
+
+- (void)testStubbedMethodCanPerformActionAndReturnInt
+{
+    ReturningObject *mockObject = mock([ReturningObject class]);
+    int testInt = 100;
+    __block BOOL didPerformAction = NO;
+    [given([mockObject methodReturningInt]) willDo:^{
+        didPerformAction = YES;
+    } andReturnInt:testInt];
+    
+    int returnedInt = [mockObject methodReturningInt];
+    
+    STAssertTrue(returnedInt == 100, @"Returned object was not set.");
+    STAssertTrue(didPerformAction, @"Action not performed by stub.");
+}
+
+
 @end

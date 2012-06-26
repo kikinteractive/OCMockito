@@ -46,6 +46,8 @@
     else if (strcmp(methodReturnType, @encode(type)) == 0)                                   \
     {                                                                                        \
         type answer = [[_invocationContainer findAnswerFor:anInvocation] typeName ## Value]; \
+        MKTMockStubAction action = [_invocationContainer findActionFor:anInvocation];        \
+        if (action != nil) action();                                                         \
         [anInvocation setReturnValue:&answer];                                               \
     }
 
@@ -80,6 +82,10 @@
     if (MKTTypeEncodingIsObjectOrClass(methodReturnType))
     {
         id answer = [_invocationContainer findAnswerFor:anInvocation];
+        MKTMockStubAction action = [_invocationContainer findActionFor:anInvocation];
+        if (action != nil) {
+            action();
+        }
         [anInvocation setReturnValue:&answer];
     }
     HANDLE_METHOD_RETURN_TYPE(char, char)

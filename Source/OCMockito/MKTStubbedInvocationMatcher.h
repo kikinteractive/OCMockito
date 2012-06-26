@@ -9,5 +9,6 @@
 @interface MKTStubbedInvocationMatcher : MKTInvocationMatcher
 
 @property (nonatomic, retain) id answer;
+@property (nonatomic, copy) void (^action)(void);
 
 @end

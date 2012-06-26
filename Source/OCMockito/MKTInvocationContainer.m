@@ -68,11 +68,30 @@
     [_stubbed insertObject:_invocationMatcherForStubbing atIndex:0];
 }
 
+
+- (void)addAnswer:(id)answer action:(MKTMockStubAction)action
+{
+    [self addAnswer:answer];
+    [_invocationMatcherForStubbing setAction:action];
+}
+
 - (id)findAnswerFor:(NSInvocation *)invocation
 {
     for (MKTStubbedInvocationMatcher *stubbedInvocationMatcher in _stubbed)
         if ([stubbedInvocationMatcher matches:invocation])
             return [stubbedInvocationMatcher answer];
+    
+    return nil;
+}
+
+
+- (MKTMockStubAction)findActionFor:(NSInvocation *)invocation
+{
+    for (MKTStubbedInvocationMatcher *stubbedInvocationMatcher in _stubbed) {
+        if ([stubbedInvocationMatcher matches:invocation]) {
+            return [stubbedInvocationMatcher action];
+        }
+    }
     
     return nil;
 }
