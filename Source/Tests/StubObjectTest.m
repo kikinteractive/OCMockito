@@ -385,7 +385,7 @@
     
     int returnedInt = [mockObject methodReturningInt];
     
-    STAssertTrue(returnedInt == 100, @"Returned object was not set.");
+    STAssertTrue(returnedInt == 100, @"Returned integer was not set.");
     STAssertTrue(didPerformAction, @"Action not performed by stub.");
 }
 

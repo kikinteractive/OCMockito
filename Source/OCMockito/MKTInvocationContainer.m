@@ -69,7 +69,7 @@
 }
 
 
-- (void)addAnswer:(id)answer action:(MKTMockStubAction)action
+- (void)addAnswer:(id)answer action:(void (^)(void))action
 {
     [self addAnswer:answer];
     [_invocationMatcherForStubbing setAction:action];
@@ -85,7 +85,7 @@
 }
 
 
-- (MKTMockStubAction)findActionFor:(NSInvocation *)invocation
+- (void (^)(void))findActionFor:(NSInvocation *)invocation
 {
     for (MKTStubbedInvocationMatcher *stubbedInvocationMatcher in _stubbed) {
         if ([stubbedInvocationMatcher matches:invocation]) {
