@@ -406,7 +406,7 @@
     }];
     
     [mockObject methodReturningVoid];
-    
+        
     STAssertTrue(didPerformAction, @"Action not performed by stub.");
 }
 
