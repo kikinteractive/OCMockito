@@ -16,6 +16,12 @@
     #import <OCHamcrestIOS/OCHamcrestIOS.h>
 #endif
 
+@interface NonReturningObject : NSObject
+@end
+
+@implementation NonReturningObject
+- (void)methodReturningVoid {}
+@end
 
 @interface ReturningObject : NSObject
 @end
@@ -389,5 +395,19 @@
     STAssertTrue(didPerformAction, @"Action not performed by stub.");
 }
 
+
+- (void)testStubbedMethodCanPerformActionAndNotReturnAValue
+{
+    NonReturningObject *mockObject = mock([NonReturningObject class]);
+    __block BOOL didPerformAction = NO;
+    
+    [given([mockObject methodReturningVoid]) willDo:^{
+        didPerformAction = YES;
+    }];
+    
+    [mockObject methodReturningVoid];
+    
+    STAssertTrue(didPerformAction, @"Action not performed by stub.");
+}
 
 @end

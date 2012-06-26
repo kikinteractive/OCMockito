@@ -9,7 +9,10 @@
 @protocol HCMatcher;
 
 @interface MKTInvocationContainer : NSObject
-
+{
+    BOOL _returnsVoid;
+}
+@property (readonly) BOOL returnsVoid;
 @property (nonatomic, readonly) NSMutableArray *registeredInvocations;
 
 - (id)initWithMockingProgress:(MKTMockingProgress *)mockingProgress;
@@ -17,6 +20,8 @@
 - (void)setMatcher:(id <HCMatcher>)matcher atIndex:(NSUInteger)argumentIndex;
 - (void)addAnswer:(id)answer;
 - (void)addAnswer:(id)answer action:(void (^)(void))action;
+- (void)addAction:(void (^)(void))action;
 - (id)findAnswerFor:(NSInvocation *)invocation;
 - (void (^)(void))findActionFor:(NSInvocation *)invocation;
+
 @end

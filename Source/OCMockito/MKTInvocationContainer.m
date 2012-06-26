@@ -19,6 +19,7 @@
 
 @implementation MKTInvocationContainer
 
+@synthesize returnsVoid = _returnsVoid;
 @synthesize registeredInvocations = _registeredInvocations;
 @synthesize invocationMatcherForStubbing = _invocationMatcherForStubbing;
 
@@ -73,6 +74,14 @@
 {
     [self addAnswer:answer];
     [_invocationMatcherForStubbing setAction:action];
+}
+
+- (void)addAction:(void (^)(void))action
+{
+    _returnsVoid = YES;
+    [_registeredInvocations removeLastObject];
+    [_invocationMatcherForStubbing setAction:action];
+    [_stubbed insertObject:_invocationMatcherForStubbing atIndex:0];
 }
 
 - (id)findAnswerFor:(NSInvocation *)invocation

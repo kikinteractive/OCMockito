@@ -44,6 +44,13 @@
 }
 
 
+- (MKTOngoingStubbing *)willDo:(void (^)(void))action
+{
+    [_invocationContainer addAction:action];
+    return self;
+}
+
+
 #define DEFINE_RETURN_METHOD(type, typeName)                                        \
     - (MKTOngoingStubbing *)willReturn ## typeName:(type)value                      \
     {                                                                               \

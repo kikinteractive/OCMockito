@@ -81,13 +81,22 @@
     const char* methodReturnType = [methodSignature methodReturnType];
     if (MKTTypeEncodingIsObjectOrClass(methodReturnType))
     {
-        id answer = [_invocationContainer findAnswerFor:anInvocation];
         void (^action)(void) = [_invocationContainer findActionFor:anInvocation];
         if (action != nil) {
             action();
         }
+
+        id answer = [_invocationContainer findAnswerFor:anInvocation];
         [anInvocation setReturnValue:&answer];
     }
+    else if ([methodSignature methodReturnLength] == 0) {
+        // Method that returns void.
+        void (^action)(void) = [_invocationContainer findActionFor:anInvocation];
+        if (action != nil) {
+            action();
+        }
+    }
+    
     HANDLE_METHOD_RETURN_TYPE(char, char)
     HANDLE_METHOD_RETURN_TYPE(int, int)
     HANDLE_METHOD_RETURN_TYPE(short, short)

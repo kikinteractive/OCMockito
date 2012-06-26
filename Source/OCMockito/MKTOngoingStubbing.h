@@ -70,6 +70,7 @@
  */
 
 - (MKTOngoingStubbing *)willDo:(void (^)(void))action andReturn:(id)object;
+- (MKTOngoingStubbing *)willDo:(void (^)(void))action;
 
 #define DEFINE_DO_AND_RETURN_METHOD_PROTO(type, typeName)                                        \
 - (MKTOngoingStubbing *)willDo:(void (^)(void))action andReturn ## typeName:(type)value                      
